@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Helo File System</title>
+</head>
+<body>
+<h1>Files</h1>
+  <% @files.each do |file| %>
+    DIR: <a href="/files/<%= file %>"><%= file %></a>
+    <a href="/download/<%= file %>"> Download </a>
+    <br>
+  <% end %>
+<h1>Directories</h1>
+  <% @directories.each do |directory| %>
+    DIR: <%= directory %> <br>
+  <% end %>
+
+</body>
+</html>
