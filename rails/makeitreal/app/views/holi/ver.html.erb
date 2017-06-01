@@ -1,2 +1,13 @@
+<% content_for :top_bar do %>
+  <h1>This is a top bar</h1>
+<% end %>
+<% content_for :title do %>
+  Mac
+<% end %>
+
+<%= render 'minicart', products: @products %>
+
 <h1>Holi#ver</h1>
 <%= @name %>
+<%= link_to 'GO TO PRODUCTS', products_path %>
+<a href="<%= products_path %>">GO TO PRODUCTS</a>
