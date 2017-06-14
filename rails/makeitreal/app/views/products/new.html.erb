@@ -1,0 +1,5 @@
+<%= form_for @product do |f| %>
+  <%= f.text_field :sku %>
+  <%= f.text_field :name %>
+  <%= f.submit "Create", :disable_with => 'Creating...' %>
+<% end %>
