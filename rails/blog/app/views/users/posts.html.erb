@@ -1,0 +1,15 @@
+<% if @posts.empty? %>
+  <h1>There is no posts</h1>
+  <%= link_to("create your first post", new_user_post_path(current_user)) %>
+<% else %>
+  <% @posts.each do |post| %>
+    <h1>
+      <%= post.title %>
+    </h1>
+    <textarea>
+      <%= post.content %>
+    </textarea>
+  <% end %>
+
+  <%= link_to("create another post", new_user_post_path(current_user)) %>
+<% end %>
