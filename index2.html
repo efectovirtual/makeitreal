@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <!-- HTML CONTENT -->
+  <input type="text" name="content">
+  <p class="two-way-binding"></p>
+
+  <form class="categories">
+    <label>
+      Restaurantes
+      <input type="checkbox" value="Restaurantes">
+    </label>
+    <label>
+      Discotecas
+      <input type="checkbox" value="Discotecas">
+    </label>
+    <label>
+      Tiendas
+      <input type="checkbox" value="Tiendas">
+    </label>
+    <button type="submit">Select</button>
+  </form>
+  <div class="selected"></div>
+
+  <form class="service-agreement">
+    <input type="text" name="nombre">
+    <input type="text" name="apellido">
+    <input type="text" name="cc">
+    <input type="checkbox" name="agree">
+    <input type="submit" name="" disabled value="Create Account">
+  </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // display the text of an input text in another tag
+      $('input[name="content"]').keyup(function () {
+        var text = $(this).val()
+        $('.two-way-binding').text(text)
+      })
+      // encuentra todos los elementos que estan checked en un formulario
+      $('.categories').submit(function (event) {
+        event.preventDefault()
+        var selected = $('.categories input[type="checkbox"]:checked')
+        // var text = '<ul>'
+        // selected.each(function (index, ele) {
+        //   text += '<li>' + $(ele).val() + '</li>'
+        // })
+        // text += '</ul>'
+        var list = $.map(selected, function (ele) {
+          return '<li>' + $(ele).val() + '</li>'
+        }).join('')
+        var text = '<ul>' + list + '</ul>'
+        if ($('.selected ul').length === 0) {
+          $('.selected').append(text)
+        } else {
+          $('.selected ul').replaceWith(text)
+        }
+      })
+
+      // formulario que valide que los input tengan contenido y
+      // que contenga un accept terms of service y
+      // si no esta checkeado el boton de submit debe estar deshabilitado
+      $('.service-agreement input[type="checkbox"]').on('change', function () {
+        if ($(this).is(':checked')) {
+          $('.service-agreement input[type="submit"]').attr('disabled', false)
+        } else {
+          $('.service-agreement input[type="submit"]').attr('disabled', true)
+        }
+      })
+
+      // haga un contador de segundos y un boton para hacerle reset
+
+    })
+  </script>
+</body>
+</html>
