@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax 2</title>
+</head>
+<body>
+
+<div id="content"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function fetchUsers(callback) {
+    $.ajax({
+      url: 'https://randomuser.me/api/',
+      data: {
+        results: 5
+      },
+      dataType: 'json'
+    })
+    .done(function (data) {
+      callback(null, data)
+    })
+    .fail(function (xhr) {
+      console.log(xhr)
+      callback(xhr, null)
+    })
+  }
+
+  function paintUsers (data) {
+    var users = data.results
+    var usersData = users.map(function (user) {
+      var fullNameH1 = $('<h1></h1>').text(user.name.first + ' ' + user.name.last)
+
+      var emailTag = $('<div></div>', { class: 'email' } ).text(user.email)
+      var usernameTag = $('<div></div>', { class: 'username' }).text(user.login.username)
+      var passwordTag = $('<div></div>', { class: 'password' }).text(user.login.password)
+
+      var credentials = $('<div></div>', { class: 'credentials' })
+        .append(emailTag)
+        .append(usernameTag)
+        .append(passwordTag)
+      var imageTag = $('<img/>', { src: user.picture.large })
+
+      return $('<div></div>')
+        .addClass('user')
+        .append(fullNameH1)
+        .append(credentials)
+        .append(imageTag)
+    })
+    $('div#content').append(usersData)
+  }
+
+  $(document).ready(function () {
+    fetchUsers(function (error, data) {
+      if (error) {
+        alert(error)
+      } else {
+        paintUsers(data)
+      }
+    })
+  })
+</script>
+</body>
+</html>
