@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax3</title>
+</head>
+<body>
+  <form id="create-user">
+    <input type="text" name="name">
+    <input type="text" name="last-name">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit" name="" value="crear">
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // CREATE WITH JSON
+    // function createCustomer (data, callback) {
+    //   $.ajax({
+    //     url: 'https://reqres.in/api/users',
+    //     data: JSON.stringify(data),
+    //     method: 'POST',
+    //     headers: {
+    //       'content-type': 'application/json'
+    //     }
+    //   }).done(function (result) {
+    //     callback(null, result)
+    //   }).fail(function (result) {
+    //     console.log(result)
+    //     callback(result, null)
+    //   })
+    // }
+
+    function createCustomer (data, callback) {
+      $.ajax({
+        url: 'https://reqres.in/api/users',
+        data: data,
+        method: 'POST',
+      }).done(function (result) {
+        callback(null, result)
+      }).fail(function (result) {
+        console.log(result)
+        callback(result, null)
+      })
+    }
+
+    function fetchUserImage (callback) {
+      setTimeout(function () {
+        $.ajax({ url: 'https://randomuser.me/api/', dataType: 'json' })
+        .done(function (data) {
+          var user = data.results[0]
+          callback(null, user.picture.large)
+        })
+        .fail(function (xhr) {
+          console.log(xhr)
+          callback(xhr, null)
+        })
+      }, 5000)
+    }
+
+    function assignImage (user) {
+      return function (error, url) {
+        if (error) {
+          alert(error)
+        } else {
+          user.url = url
+          return user
+        }
+      }
+    }
+
+    function getImageForUser (error, user) {
+      if (error) {
+        alert(error)
+      } else {
+        displayUser(fetchUserImage(assignImage(user)))
+      }
+    }
+
+    function displayUser (user) {
+      console.log(user)
+    }
+
+    $(document).ready(function () {
+      $('form#create-user').on('submit', function (event) {
+        event.preventDefault()
+        var name = $('input[name="name"]').val()
+        var lastName = $('input[name="last-name"]').val()
+        var username = $('input[name="username"]').val()
+        var password = $('input[name="password"]').val()
+        createCustomer({
+          name: name,
+          lastName: lastName,
+          username: username,
+          password: password
+        }, getImageForUser)
+      })
+    })
+  </script>
+</body>
+</html>
