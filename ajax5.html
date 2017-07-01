@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax 5</title>
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // usando reqres como API:
+    // creara un usuario con los atributos {username, password}
+    // luego creara una orden con los attributos {total, customer, state} debe
+    // asignarle el customer a la orden (actualize la orden en el api),
+    // luego dado un arreglo de items de la forma {name, quantity, price, order }
+    // le asignara la orden creada a cada item y los guardara.
+    // una vez hecho esto, actualizara la orden marcandola como paga
+
+    var order = {
+      customer: null,
+      total: 0,
+      state: 'uncharged'
+    }
+
+    var items = [
+      { name: 'Zapatos Nike', quantity: 1, price: 150000, order: null },
+      { name: 'Gorra Adidas', quantity: 1, price: 50000, order: null },
+      { name: 'Medias', quantity: 3, price: 5000, order: null },
+    ]
+
+    var customer = {
+      username: 'yepeto@ex.com',
+      password: '1234567890'
+    }
+
+    function createCustomer(data) {
+      return $.ajax({
+        url: 'https://reqres.in/api/customers',
+        method: 'POST',
+        data: data
+      })
+    }
+
+    function createOrder(data) {
+      return $.ajax({
+        url: 'https://reqres.in/api/orders',
+        method: 'POST',
+        data: data
+      })
+    }
+
+    function createOrderItem(data) {
+      return $.ajax({
+        url: 'https://reqres.in/api/items',
+        method: 'POST',
+        data: data
+      })
+      .then(function (data) { return data })
+    }
+
+    function updateOrder(order) {
+      return $.ajax({
+        url: 'https://reqres.in/api/orders/'+ order.id,
+        method: 'PATCH',
+        data: order
+      })
+    }
+
+    function fullFlow(customerData, orderData, itemsData) {
+      var customer
+      var order
+      var items
+      return createCustomer(customerData)
+        .then(function (createdCustomer) {
+          customer = createdCustomer
+          return createOrder(orderData)
+        })
+        .then(function (createdOrder) {
+          order = createdOrder
+          order.customer = customer.id
+          return updateOrder(order)
+        })
+        .then(function (updatedOrder) {
+          order = updatedOrder
+          itemsData.forEach(function (item) {
+            item.order = order.id
+          })
+          var createItemsPromises = itemsData.map(function (item) {
+            return createOrderItem(item)
+          })
+          return Promise.all(createItemsPromises)
+        })
+        .then(function (createdItems) {
+          items = createdItems
+          order.state = 'paid'
+          return updateOrder(order)
+        })
+        .then(function () {
+          console.log('CUSTOMER ', customer)
+          console.log('ORDER ', order)
+          console.log('ITEMS ', items)
+        })
+    }
+    fullFlow(customer, order, items)
+  </script>
+</body>
+</html>
