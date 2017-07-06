@@ -12,5 +12,12 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
 //= require_tree .
 //= bootstrap-sprockets
+// $(document).ready(function () {
+//   alert('hola mundo')
+// })
+// $(document).on('turbolinks:load', function () {
+//   alert('hola mundo')
+// })
