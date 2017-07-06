@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     @post = Post.new
     respond_to do |format|
       format.html
-      format.js
+      format.js { render partial: 'form', content_type: 'text/plain' }
     end
   end
 

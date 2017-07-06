@@ -43,4 +43,9 @@
 </div>
 
 <script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    $('.create-new-post').on('ajax:success', function (event) {
+      var content = event.detail[0]
+      $('.new-form').append(content) })
+  })
 </script>
