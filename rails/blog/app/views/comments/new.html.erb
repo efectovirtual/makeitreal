@@ -1,0 +1,5 @@
+<%= @post.title %>
+<%= form_for [@post, @comment] do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit 'Create' %>
+<% end %>

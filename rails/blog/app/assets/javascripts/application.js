@@ -14,7 +14,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-//= bootstrap-sprockets
+//= require bootstrap-sprockets
 // $(document).ready(function () {
 //   alert('hola mundo')
 // })
