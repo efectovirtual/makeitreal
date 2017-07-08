@@ -1,22 +1,18 @@
 <%= @post.title %>
 <%= @post.content %>
 <h1>Comments</h1>
+<div class="container" id="comments">
 
+</div>
 <script type="text/javascript">
-  $(document).on('turbolinks:load', function () {
+  function loadComments () {
      $.ajax({
-       type: "GET",
-       contentType: "application/json; charset=utf-8",
-       url: "<%= post_comments_path @post %>",
-       // corssDomain: true,
-       dataType: "json",
-       success: function (data) {
-          console.log(data)
-       },
-
-       error : function(data) {
-
-       }
-    });
+       type: 'GET',
+       contentType: 'application/javascript',
+       url: '<%= post_comments_path @post %>'
+    })
+  }
+  $(document).on('turbolinks:load', function () {
+    loadComments()
   })
 </script>
