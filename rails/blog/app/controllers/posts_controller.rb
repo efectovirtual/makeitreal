@@ -1,11 +1,16 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
+    @posts = Post.all
   end
 
   def new
     @post = Post.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -25,6 +30,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find params[:id]
   end
 
   def show
@@ -32,6 +38,11 @@ class PostsController < ApplicationController
   end
 
   def update
+    safe_params = params.require(:post)
+      .permit(:title, :content)
+    @post = Post.find params[:id]
+    @post.update_attributes safe_params
+    @post.save
   end
 
   def destroy
