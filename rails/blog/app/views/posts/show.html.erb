@@ -1,9 +1,11 @@
-<%= @post.title %>
-<%= @post.content %>
-<h1>Comments</h1>
-<div class="container" id="comments">
+<%= render 'show' %>
 
+<div class="container">
+  <div class="row" id="comments">
+    <h1>Comments</h1>
+  </div>
 </div>
+
 <script type="text/javascript">
   function loadComments () {
      $.ajax({

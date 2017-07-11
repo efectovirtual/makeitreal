@@ -30,6 +30,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find params[:id]
   end
 
   def show
@@ -37,6 +38,11 @@ class PostsController < ApplicationController
   end
 
   def update
+    safe_params = params.require(:post)
+      .permit(:title, :content)
+    @post = Post.find params[:id]
+    @post.update_attributes safe_params
+    @post.save
   end
 
   def destroy

@@ -12,6 +12,7 @@
           <tr>
             <th>Title</th>
             <th>Contet</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
             <tr>
               <td><%= link_to(post.title, new_post_comment_path(post)) %></td>
               <td><p><%= post.content %></p></td>
+              <td><%= link_to('View', post_path(post)) %></td>
             </tr>
           <% end %>
         </tbody>

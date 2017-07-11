@@ -26,6 +26,6 @@
 </div>
 <script type="text/javascript">
   $('.delete_comment_link').on('ajax:success', function (event) {
-    $(this).parent('tr').fadeOut().remove()
+    $(this).parents('tr').fadeOut().remove()
   })
 </script>

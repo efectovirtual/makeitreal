@@ -10,7 +10,8 @@
 
   <body>
     <% if user_signed_in? %>
-      <%= link_to "See all posts", user_posts_path(current_user) %>
+      <%= link_to "See all my posts", user_posts_path(current_user) %>
+      <%= link_to "See all posts", posts_path %>
       <%= link_to "Logout", destroy_user_session_path, method: 'delete' %>
     <% else %>
       <%= link_to "See all posts", posts_path %>

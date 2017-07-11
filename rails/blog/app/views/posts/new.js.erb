@@ -1,2 +1,2 @@
-var form = $('<%= escape_javascript render "form" %>')
+var form = $('<%= escape_javascript render "form", submit_msg: "Create Post" %>')
 $('.new-form').append(form)
