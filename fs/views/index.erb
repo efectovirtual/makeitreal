@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FS</title>
+</head>
+<body>
+  <% @directories.each do |directory| %>
+    <%= directory %></br>
+  <% end %>
+  <% @files.each do |file| %>
+    See Content of <a href="/files/<%= file %>"> <%= file %> </a> </br>
+    Download <a href="/download/<%= file %>"> <%= file %> </a> </br>
+  <% end %>
+</body>
+</html>
