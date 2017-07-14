@@ -1,0 +1,35 @@
+<h1>Products</h1>
+<h2>Search</h2>
+<form action="/products">
+  <label>
+    Price
+    <input type="text" name="by_price">
+  </label>
+  <label>
+    Sort
+    <input type="checkbox" name="sort_by" value="price">
+  </label>
+
+  <input type="submit" value="Submit">
+</form>
+
+<table>
+  <thead>
+    <td>Name</td>
+    <td>Price</td>
+    <td>Currency</td>
+  </thead>
+  <tbody>
+    <% @products.each do |product|  %>
+      <tr>
+        <td>
+          <a href="/products/<%=product[:name]%>">
+            <%= product[:name] %>
+          </a>
+        </td>
+        <td><%= product[:price] %></td>
+        <td><%= product[:currency] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+Email <%= @customer[:email] %>
+
+<table>
+  <thead>
+    <td>OrderId</td>
+    <td>Total</td>
+    <td>Currency</td>
+  </thead>
+  <tbody>
+    <% @customer[:orders].each do |order| %>
+      <tr>
+        <td> <%= order[:order_id] %></td>
+        <td> <%= order[:total] %></td>
+        <td> <%= order[:currency] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

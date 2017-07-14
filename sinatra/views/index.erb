@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <td>Name</td>
+    <td>Price</td>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td> <%= product[:name] %></td>
+        <td> <%= product[:price] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
